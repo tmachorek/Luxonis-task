@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SREALITY Data</title>
+    <style>
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .item {
+            margin: 15px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .item img {
+            max-width: 200px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+    {% for row in data %}
+        <div class="item">
+            <h2>{{ row[0] }}</h2>
+            {% for url in row[1] %}
+                <img src="{{ url }}" alt="Image">
+            {% endfor %}
+        </div>
+    {% endfor %}
+    </div>
+</body>
+</html>
