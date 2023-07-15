@@ -17,6 +17,7 @@ The project is partioned into invidual Docker containers, one for Postgre db, on
   ```sh
   $ docker-compose up
   ```
+4. Navigate to http://127.0.0.1:8080 to see the scrapped ads.
 
 ### Natively
 1. Install Python, ver. >= 3.11.4
@@ -37,3 +38,14 @@ The project is partioned into invidual Docker containers, one for Postgre db, on
 8. In `Scrapping/Sreality_scrapper/Sreality_scrapper/pipelines.py:create_connection` change your PostgreSQL access details to fit your database
 9. In `Web/Initialize_web.py:index` change your PostgreSQL access details to fit your database
 10. Run `main.py`
+11. Navigate to http://127.0.0.1:8080 to see the scrapped ads.
+
+## Possible improvements
+
+By the nature of the tasks' description this task was fulfilled as functional developer demo via the easiest working means and could be improved by the following changes:
+- **SQL query sanitation** - The INSERT queries that populate PostgreSQL database are not completely sanitised and hence could be security risk.
+- **Documentation** - The code is missing any sort of comments, in dev env they should be included.
+- **Docker compose vars** - Inclusion of enviromental variables for choice of Postgre db, password, ...
+- **Docker volumes/containers cleanup** - As of this moment this implementation does not have automatic prunning of containers and or volumes.
+- **Continuous Scrapy usage** - In current versio the Scrapy container is ran only once upon `docker-compose up` command so the feed of the newest listings on scrapped website is not continuos
+  but as `robots.txt` do not allow Scrapy framework it could result in breach of it's company policies hence this may be the best approach for demo showing. 
