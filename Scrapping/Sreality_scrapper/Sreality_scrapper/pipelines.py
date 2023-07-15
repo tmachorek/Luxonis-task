@@ -1,4 +1,5 @@
 import psycopg2
+import os
 
 
 class PostgresPipeline:
@@ -9,8 +10,13 @@ class PostgresPipeline:
         self.create_connection()
 
     def create_connection(self):
+        if os.getenv('RUNNING_IN_DOCKER') is not None:
+            host = "postgres-container"
+        else:
+            host = "localhost"
+
         self.conn = psycopg2.connect(
-            host="localhost",
+            host=host,
             database="postgres",
             user="postgres",
             password="postgre",

@@ -8,7 +8,7 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     if os.getenv('RUNNING_IN_DOCKER') is not None:
-        host = "postgres"
+        host = "postgres-container"
     else:
         host = "localhost"
 
@@ -20,7 +20,7 @@ def index():
         port="5432"
     )
     cursor = conn.cursor()
-    cursor.execute('SELECT title, img_urls FROM SREALITY')
+    cursor.execute('SELECT title, img_urls FROM SREALITY;')
     rows = cursor.fetchall()
     cursor.close()
     conn.close()
