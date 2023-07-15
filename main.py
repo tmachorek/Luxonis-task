@@ -17,9 +17,7 @@ def initialize_spider():
 
 def main():
     initialize_spider()
-
-    if os.getenv('RUNNING_IN_DOCKER') is None:
-        initialize_web()
+    initialize_web()
 
 
 if __name__ == '__main__':
