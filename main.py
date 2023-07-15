@@ -1,16 +1,26 @@
-# This is a sample Python script.
+import os
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+from scrapy.crawler import CrawlerProcess
+from scrapy.utils.project import get_project_settings
 
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+from Scrapping.Sreality_scrapper.Sreality_scrapper.spiders.property_spider import PropertySpider
+from Web.initialize_web import initialize_web
 
 
-# Press the green button in the gutter to run the script.
+def initialize_spider():
+    settings = get_project_settings()
+
+    process = CrawlerProcess(settings)
+    process.crawl(PropertySpider)
+    process.start()
+
+
+def main():
+    initialize_spider()
+
+    if os.getenv('RUNNING_IN_DOCKER') is None:
+        initialize_web()
+
+
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    main()

@@ -1,12 +1,19 @@
 from flask import Flask, render_template
 import psycopg2
+import os
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def index():
+    if os.getenv('RUNNING_IN_DOCKER') is not None:
+        host = "postgres"
+    else:
+        host = "localhost"
+
     conn = psycopg2.connect(
-        host="localhost",
+        host=host,
         database="postgres",
         user="postgres",
         password="postgre",
@@ -20,5 +27,15 @@ def index():
 
     return render_template('index.html', data=rows)
 
-if __name__ == "__main__":
-    app.run(host='127.0.0.1', port=8080)
+
+def initialize_web():
+    if os.getenv('RUNNING_IN_DOCKER') is not None:
+        address = "0.0.0.0"
+    else:
+        address = "127.0.0.1"
+
+    app.run(host=address, port=8080)
+
+
+if os.getenv('RUNNING_IN_DOCKER') is not None:
+    initialize_web()
