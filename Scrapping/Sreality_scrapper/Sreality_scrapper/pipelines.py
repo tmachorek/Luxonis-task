@@ -27,14 +27,6 @@ class PostgresPipeline:
         self.curr = self.conn.cursor()
 
     def store_in_db(self, item):
-        while True:
-            self.curr.execute(f"SELECT to_regclass('SREALITY');")
-            if self.curr.fetchone()[0] is not None:
-                break
-            else:
-                print("Table does not exist yet. Waiting...")
-                time.sleep(5)
-
         try:
             self.curr.execute(""" INSERT INTO SREALITY (title, img_urls) VALUES(%s, %s);""",
                               (item["title"], item["img_urls"]))
