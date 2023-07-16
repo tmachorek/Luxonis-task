@@ -8,7 +8,7 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     if os.getenv('RUNNING_IN_DOCKER') is not None:
-        host = "postgres-container"
+        host = "postgres"
     else:
         host = "localhost"
 

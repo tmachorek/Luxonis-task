@@ -11,7 +11,7 @@ class PostgresPipeline:
 
     def create_connection(self):
         if os.getenv('RUNNING_IN_DOCKER') is not None:
-            host = "postgres-container"
+            host = "postgres"
         else:
             host = "localhost"
 
