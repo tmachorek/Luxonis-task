@@ -15,12 +15,13 @@ services:
     restart: unless-stopped
 
   scrapy:
-    build:
-       context: Scrapping
-    image: "scrapy"
-    container_name: "scrapy-container"
-    depends_on:
-      - postgres
+      build:
+         context: Scrapping
+      image: "scrapy"
+      container_name: "scrapy-container"
+      depends_on:
+        - postgres
+      restart: on-failure
 
   postgres:
     build:
